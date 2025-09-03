@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML | Forms & Tables</title>
+    <meta name="description" content="Learn how to use HTML forms and tables with simple explanations and examples. ">
+</head>
+
+<body>
+    <header>
+        <h1>Forms & Tables in HTML </h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="tags.html">HTML Tags</a></li>
+                <li><a href="structure.html">Structure</a></li>
+                <li><a href="forms.html">Forms & Tables</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Tables Section -->
+        <section>
+            <h2>1. Tables</h2>
+            <p>
+                Tables are used to display data in rows and columns.
+                They are structured using the following tags:
+            </p>
+            <ul>
+                <li>&lt;table&gt; → Defines the table</li>
+                <li>&lt;tr&gt; → Defines a table row</li>
+                <li>&lt;th&gt; → Defines a table header (bold, centered by default)</li>
+                <li>&lt;td&gt; → Defines a table cell (data)</li>
+                <li>&lt;caption&gt; → Adds a title to the table</li>
+            </ul>
+
+            <h3>Example Table</h3>
+            <table border="1" cellpadding="6" cellspacing="0">
+                <caption>Student Information</caption>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Course</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ram</td>
+                        <td>20</td>
+                        <td>HTML Basics</td>
+                    </tr>
+                    <tr>
+                        <td>Hari</td>
+                        <td>22</td>
+                        <td>Web Design</td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </section>
+
+        <hr>
+
+        <!-- Forms Section -->
+        <section>
+            <h2>2. Forms</h2>
+            <p>
+                Forms allow users to enter and submit data.
+                They are built using these common tags:
+            </p>
+            <ul>
+                <li>&lt;form&gt; → Defines the form area</li>
+                <li>&lt;label&gt; → Describes input fields</li>
+                <li>&lt;input&gt; → Creates input fields (text, email, password, etc.)</li>
+                <li>&lt;textarea&gt; → Creates multi-line text area</li>
+                <li>&lt;select&gt; &lt;option&gt; → Creates a dropdown menu</li>
+                <li>&lt;button&gt; or &lt;input type="submit"&gt; → Submits the form</li>
+            </ul>
+
+            <h3>Example Form</h3>
+            <form action="#" method="post">
+                <fieldset style="width: fit-content;"> 
+                <legend>Basic Info</legend> <br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="course">Choose a Course:</label>
+                <select id="course" name="course">
+                    <option value="html" >HTML</option>
+                    <option value="css" selected>CSS</option>
+                    <option value="js">JavaScript</option>
+                </select><br><br>
+
+                <label for="message">Message:</label><br>
+                <textarea id="message" name="message" rows="4" cols="40"></textarea><br><br>
+
+                <button type="submit">Submit</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Learn HTML | Built with only HTML</p>
+    </footer>
+</body>
+
+</html>
