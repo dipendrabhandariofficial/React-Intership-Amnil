@@ -1,0 +1,100 @@
+:root {
+  --sidebar: 200px;
+  --sidebar-collapsed: 60px;
+}
+
+body {
+  display: flex;
+  height:97vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Hide checkbox */
+#toggle {
+  display: none;
+}
+
+/* Burger button */
+.bttn {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  font-size: 22px;
+  color: white;
+  background: #333;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+.bttn:hover {
+  background: #444;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-collapsed);
+  background-color: #333;
+  color: white;
+  padding-top: 60px; 
+  transition: width 0.3s ease;
+  overflow: hidden;
+}
+
+.sidebar .item {
+  padding: 16px 18px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.sidebar .item:hover {
+  background: #444;
+}
+
+/* Main section */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content:;
+  background-color: lch(82.54% 82.74 85.82 / 0.973);
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 40px;
+  justify-items: center;
+  align-items: center;
+  transition: margin-left 0.3s;
+}
+
+/* Footer */
+.foot {
+  text-align: center;
+  padding: 15px;
+  background: #333;
+  font-size: 14px;
+  color: white;
+  border-top: 1px solid #ccc;
+}
+
+/* --- Collapsed state (click) --- */
+#toggle:checked ~ .sidebar {
+  width: var(--sidebar);
+}
+#toggle:checked ~ .sidebar .text {
+  display: inline; /* ✅ Show text when toggled open */
+}
+
+/* --- Hover expand ---
+.sidebar:hover {
+  width: var(--sidebar); 
+}
+.sidebar:hover .text {
+  display: inline;
+} */
