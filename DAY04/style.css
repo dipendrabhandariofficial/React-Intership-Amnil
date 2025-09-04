@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 30px;
+    border:1px solid orange;
+    display: flex; 
+
+}
+.container div{
+    height: 400px;
+}
+
+.box1{
+    background-color: red;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 500px;
+}
+.box2{
+    background-color: green;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+.box3{
+    background-color: blue;
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: 300px;
+}
+.box4{
+    background-color: purple;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
