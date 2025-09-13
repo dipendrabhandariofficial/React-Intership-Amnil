@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone no table</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Phone No. Table</h2>
+
+        <!-- Form -->
+        <form id="itemForm" onsubmit="handleForm(event)">
+            <input type="text" id="itemInput" placeholder="Number...">
+            <button type="submit" class="add-btn" id="formBtn">Add</button>
+        </form>
+        <p id="errorMsg"></p>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="itemTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("itemInput");
+        const tableBody = document.getElementById("itemTableBody");
+        const formBtn = document.getElementById("formBtn");
+        const errorMsg = document.getElementById("errorMsg");
+
+        let editIndex = -1; 
+
+        function validateNumber(number) {
+            const pattern = /^(97|98)\d{8}$/;
+            return pattern.test(number);
+        }
+
+        function handleForm(e) {
+            e.preventDefault();
+            let value = input.value.trim();
+
+            if (!validateNumber(value)) {
+                errorMsg.textContent = "Enter a valid 10-digit number starting with 97 or 98";
+                return;
+            }
+            errorMsg.textContent = "";
+
+            const saved = JSON.parse(localStorage.getItem("myTable")) || [];
+
+            if (editIndex === -1) {
+                // ADD mode
+                if (saved.includes(value)) {
+                    errorMsg.textContent = "Phone no already exist";
+                    return;
+                }
+                errorMsg.textContent = "";
+                saved.push(value);
+            } else {
+                // EDIT mode
+                if (saved.includes(value) && saved[editIndex] !== value) {
+                    errorMsg.textContent = "Phone no already exist";
+                    return;
+
+                }
+                saved[editIndex] = value;
+                editIndex = -1;
+                formBtn.textContent = "Add";
+                formBtn.classList.add("add-btn");
+            }
+
+            localStorage.setItem("myTable", JSON.stringify(saved));
+            input.value = "";
+            renderTable();
+        }
+
+        function renderTable() {
+            tableBody.innerHTML = "";
+            let saved = JSON.parse(localStorage.getItem("myTable")) || [];
+
+            saved.forEach((item, index) => {
+                let row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td data-label="S.N">${index + 1}</td>
+                    <td data-label="Number">${item}</td>
+                    <td data-label="Actions">
+                    <button class="edit-btn" onclick="startEdit(${index})">Edit</button>  
+                    <button class="delete-btn" onclick="deleteItem(${index})">Delete</button>
+                    </td>
+                    `;
+                //could use event listener for cleaner code and large project 
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        function startEdit(index) {
+            let saved = JSON.parse(localStorage.getItem("myTable")) || [];
+            input.value = saved[index];
+            editIndex = index;
+            formBtn.textContent = "Update";
+            formBtn.classList.remove("add-btn");
+            formBtn.style.background = "#e67e22";
+        }
+        //for small project its ok to use index of -1 and > but for larger project we can create object and provide unique id 
+
+        function deleteItem(index) {
+            if (!confirm("Are you sure?")) return;
+            let saved = JSON.parse(localStorage.getItem("myTable")) || [];
+            saved.splice(index, 1);
+            localStorage.setItem("myTable", JSON.stringify(saved));
+            input.value = "";
+            renderTable();
+        }
+
+        // Initial load
+        document.addEventListener("DOMContentLoaded", renderTable);
+        // alternative is window.load rendertable but this is slow 
+    </script>
+</body>
+
+</html>

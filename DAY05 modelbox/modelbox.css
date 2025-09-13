@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 100px;
+}
+
+/* Hide checkbox */
+#click {
+    display: none;
+}
+
+/* Button */
+label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+/* Modal box (hidden by default) */
+.modelbox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+/* Show modal when checkbox is checked */
+#click:checked~.modelbox {
+    display: block;
+}
+
+/* Close button */
+.close-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 6px 12px;
+    background: #555;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
