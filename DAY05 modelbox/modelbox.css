@@ -29,26 +29,40 @@ label {
     cursor: pointer;
     border-radius: 5px;
     width: fit-content;
+    transition: background 0.3s;
+}
+label:hover {
+    background: #555;
 }
 
-/* Modal box (hidden by default) */
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+/* Modal box */
 .modelbox {
-    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.8);
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     width: 300px;
     text-align: center;
-}
-
-/* Show modal when checkbox is checked */
-#click:checked~.modelbox {
-    display: block;
+    opacity: 0; /* hidden initially */
+    pointer-events: none; /* disable interaction when hidden */
+    transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
 /* Close button */
@@ -60,4 +74,40 @@ label {
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+.close-btn:hover {
+    background: #333;
+}
+
+/* Show modal and overlay when checkbox is checked */
+#click:checked ~ .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+#click:checked ~ .modelbox {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+    animation: popup 0.5s ease forwards;
+}
+#click:checked + label {
+    display: none;
+}
+/* Optional keyframe pop effect */
+@keyframes popup {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    60% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+    80% {
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
