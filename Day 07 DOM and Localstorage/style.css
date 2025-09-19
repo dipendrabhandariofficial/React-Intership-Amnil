@@ -1,9 +1,14 @@
+*{
+  box-sizing: border-box;
+  
+}
 body {
   font-family: Arial, sans-serif;
   display: flex;
-  min-height: 100vh;
+  min-height: 93vh;
   background: #f5f5f5;
   padding: 20px;
+  margin: 0;
 }
 
 .container {
@@ -21,6 +26,7 @@ h2 {
   margin-bottom: 15px;
 }
 
+/* 📋 Form */
 form {
   display: flex;
   gap: 10px;
@@ -29,11 +35,12 @@ form {
 }
 
 input {
-  flex: 1;
+  flex: 2;
   min-width: 200px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 14px;
 }
 
 button {
@@ -43,17 +50,21 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  font-size: 14px;
 }
 
+/* ✅ Buttons */
 .add-btn {
   background: #27ae60;
+  padding: 5px 10px;
+  margin-right: 5px;
 }
 .add-btn:hover {
   background: #219150;
 }
 
 .edit-btn {
-  background: #3498db;
+  background: #007bff;
   padding: 5px 10px;
   margin-right: 5px;
 }
@@ -62,13 +73,33 @@ button {
 }
 
 .delete-btn {
-  background: red;
+  background: #dc3545;
   padding: 5px 10px;
 }
 .delete-btn:hover {
   background: darkred;
 }
 
+/* ⚠️ Error messages (multiple errors support) */
+#errorMsg {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+
+}
+#errorMsg div {
+  margin: 4px 0;
+  padding-left: 20px;
+  position: relative;
+}
+#errorMsg div::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* 📊 Table */
 .table-container {
   overflow-x: auto;
 }
@@ -83,19 +114,40 @@ th, td {
   padding: 10px;
   text-align: center;
 }
-
 th {
-  background: #f0f0f0;
+  background:  #f2f2f2;
+}
+tr:nth-child(even) {
+  background-color: whitesmoke;
+  animation: slideDown 0.5s ease-out; /* Light gray background for even rows */
+}
+tr:nth-child(odd) {
+  background-color:white;
+  animation: slideDown 0.3s ease-out; /* Light gray background for even rows */
 }
 
-#errorMsg {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
+/* Slide down when row is added */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* 📱 Responsive for small screens */
+.added-row {
+  animation: slideDown 0.4s ease-out;
+}
+
+
+/* 📱 Responsive table */
 @media (max-width: 600px) {
+  input{
+    flex: 1 1 100%;
+  }
   table, thead, tbody, th, td, tr {
     display: block;
     width: 100%;
@@ -160,17 +212,18 @@ th {
   width: 300px;
   text-align: center;
   z-index: -1;
-  transition: transform 0.4s ease, z-index 0s linear 0.4s;
+  transition: transform 0.2s ease, z-index 0s linear 0.4s;
 }
 
 #click:checked ~ .modelbox {
   transform: translate(-50%, -50%) scale(1);
   z-index: 10;
-  transition: transform 0.4s ease, z-index 0s linear 0s;
+  transition: transform 0.2s ease, z-index 0s linear 0s;
 }
 
 .modelbox h2 {
   margin-bottom: 15px;
+  color: #b30000;
 }
 
 .btn {
@@ -198,10 +251,12 @@ label:hover {
 .close-btn:hover {
   background: rgb(50, 50, 100);
 }
-.
-delete-confirm-btn {
+
+.delete-confirm-btn,
+.delete-btn {
   background: red;
-}   
-.delete-confirm-btn:hover {
+}
+.delete-confirm-btn:hover,
+.delete-btn:hover {
   background: darkred;
 }

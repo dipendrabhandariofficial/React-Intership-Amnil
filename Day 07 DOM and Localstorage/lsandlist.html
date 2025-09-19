@@ -15,7 +15,8 @@
 
         <!-- Form -->
         <form id="itemForm" onsubmit="handleForm(event)">
-            <input type="text" id="itemInput" placeholder="Number...">
+            <input type="text" id="nameInput" placeholder="Name">
+            <input type="text" id="numberInput" placeholder="Number...">
             <button type="submit" class="add-btn" id="formBtn">Add</button>
         </form>
         <p id="errorMsg"></p>
@@ -23,9 +24,10 @@
         <!-- Table -->
         <div class="table-container">
             <table>
-                <thead>
+                <thead id="tableHead">
                     <tr>
                         <th>S.N</th>
+                        <th>Name</th>
                         <th>Number</th>
                         <th>Actions</th>
                     </tr>
