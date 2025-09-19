@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Carousel| Plug and slide</title>
+    <!-- <link rel="stylesheet" href="carousel.css" id="carousel-style-external"> -->
+    <!-- <style id="carousel-style-inline">  </style> -->
+</head>
+
+<body>
+
+    <!-- Optional: user can give a container or let it be created automatically -->
+    <div id="carousel-container"></div>
+
+    <script src="dynamic_carousel.js"></script>
+
+    <script>
+        const images = [
+            { src: "./images/image1.jpg", alt: "Mountain", link: "https://dipendrabhandari.vercel.app/" },
+            "./images/image2.jpg",
+            { src: "./images/image3.jpg" }
+        ]
+        createCarousel("carousel-container", images, {
+            autoplay: true,
+            interval: 4000,
+            showButtons: true,
+            transitionTime: 0.5
+        });
+        console.log(images);
+        
+    </script>
+</body>
+
+</html>
