@@ -1,0 +1,161 @@
+.form-container {
+  max-width: 450px;
+  margin: 40px auto;
+  padding: 25px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #444;
+}
+
+input, select, textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.error-border {
+  border-color: red !important;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.checkbox label {
+  font-weight: 500;
+}
+
+/* ✅ Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 30px 25px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 350px;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.modal h3 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.modal p {
+  color: #333;
+  font-size: 15px;
+}
+
+.close-btn {
+  margin-top: 20px;
+  padding: 8px 16px;
+  border: none;
+  background-color: rgba(221, 40, 40, 0.966);
+  color: white;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.close-btn:hover {
+  background-color: #cc3700;
+}
+
+/* Fade In + Out Animation */
+.fade-in {
+  animation: fadeInOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .form-container {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  input, select, textarea {
+    font-size: 14px;
+  }
+}
+
+/* message box undragrabble  */
+textarea {
+  resize: none;
+}

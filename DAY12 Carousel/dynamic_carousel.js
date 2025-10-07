@@ -68,8 +68,12 @@ function createCarousel(containerId = null, images = [], options = {}) {
         slide.classList.add("slide");
         if (typeof img === "string") {
             slide.innerHTML = `<img src="${img}" alt="slide-${i}">`;
+            console.log(typeof (img), img);
+
         } else {
             slide.innerHTML = `<a href="${img.link || '#'}"><img src="${img.src}" alt="${img.alt || `slide-${i}`}"></a>`;
+            console.log(typeof (img), img);
+
         }
         track.appendChild(slide);
     });
@@ -86,68 +90,109 @@ function createCarousel(containerId = null, images = [], options = {}) {
     const allSlides = Array.from(track.children);
     let currentIndex = 1;
     let autoPlay;
+    let isTransitioning = false;
 
     // Set initial position
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
     function moveSlide() {
+        //add bound checks
+        if (currentIndex < 0 || currentIndex >= allSlides.length) {
+            console.warn('index out of bounds:', currentIndex);
+            return;
+        }
+        isTransitioning = true;
         track.style.transition = `transform ${config.transitionTime}s ease-in-out`;
         track.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
+    // Next button with debouncing
+    nextBtn.addEventListener('click', () => {
+        if (isTransitioning) return; // Prevent rapid clicking
 
-    // Button controls
-    if (prevBtn && nextBtn) {
-        nextBtn.addEventListener("click", () => { currentIndex++; moveSlide(); });
-        prevBtn.addEventListener("click", () => { currentIndex--; moveSlide(); });
-    }
+        currentIndex++;
+        // Bounds check
+        if (currentIndex >= allSlides.length) {
+            currentIndex = allSlides.length - 1;
+        }
+        moveSlide();
+    });
 
-    // Reset position on clone
-    track.addEventListener("transitionend", () => {
-        if (allSlides[currentIndex].id === "first-clone") {
-            track.style.transition = "none";
-            currentIndex = 1;
+    // Prev button with debouncing
+    prevBtn.addEventListener('click', () => {
+        if (isTransitioning) return; // Prevent rapid clicking
+
+        currentIndex--;
+        // Bounds check
+        if (currentIndex < 0) {
+            currentIndex = 0;
+        }
+        moveSlide();
+    });
+
+    // Reset position after the clone image is shown
+    track.addEventListener('transitionend', () => {
+        isTransitioning = false; // Reset transition flag
+
+        // Add safety check
+        if (!allSlides[currentIndex]) {
+            console.warn('Slide at index', currentIndex, 'does not exist');
+            return;
+        }
+
+        if (allSlides[currentIndex].id === 'first-clone') {
+            track.style.transition = 'none';
+            currentIndex = 1; // jump to first real slide
             track.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
-        if (allSlides[currentIndex].id === "last-clone") {
-            track.style.transition = "none";
-            currentIndex = allSlides.length - 2;
+        if (allSlides[currentIndex].id === 'last-clone') {
+            track.style.transition = 'none';
+            currentIndex = allSlides.length - 2; // jump to last real slide
             track.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
     });
 
-    // Autoplay
     function startAutoPlay() {
-        if (!config.autoplay) return;
         autoPlay = setInterval(() => {
+            if (isTransitioning) return; // Don't auto-advance during transition
+
             currentIndex++;
+            // Bounds check for auto-play
+            if (currentIndex >= allSlides.length) {
+                currentIndex = allSlides.length - 1;
+            }
             moveSlide();
-        }, config.interval);
+        }, 3000);
     }
 
-    function stopAutoPlay() { clearInterval(autoPlay); }
-
-    if (config.autoplay) {
-        startAutoPlay();
-        track.addEventListener("mouseenter", stopAutoPlay);
-        track.addEventListener("mouseleave", startAutoPlay);
+    function stopAutoPlay() {
+        clearInterval(autoPlay);
     }
 
-    // === Swipe / touch support ===
+    startAutoPlay();
+
+    track.addEventListener('mouseenter', stopAutoPlay);
+    track.addEventListener('mouseleave', startAutoPlay);
+
+    // Swipe / touch support
     let startX = 0;
     let isDragging = false;
 
     track.addEventListener("touchstart", (e) => {
         stopAutoPlay();
+        //list the first finger touch and record
+        //  the horizontal cordinate of the touch from left
         startX = e.touches[0].clientX;
-        isDragging = true;
+        console.log(startX, "start cordinate");
+        isDragging = true; //prevents random moves when user is not actually swiping.
         track.style.transition = "none";
     });
 
     track.addEventListener("touchmove", (e) => {
         if (!isDragging) return;
         const currentX = e.touches[0].clientX;
+        console.log(currentX, "current coordinate");
         const diff = currentX - startX;
-        track.style.transform = `translateX(-${currentIndex * 100}% + ${diff}px)`;
+        track.style.transform = `translateX(calc(-${currentIndex * 100}% + ${diff}px))`;
     });
 
     track.addEventListener("touchend", (e) => {

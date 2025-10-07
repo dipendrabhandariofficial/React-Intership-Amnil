@@ -1,0 +1,85 @@
+/* 🌗 THEME VARIABLES */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary: #7c3aed;
+  --tertiary: #10b981;
+
+  --success: #10b981;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+
+  /* Light Theme */
+    --toggle-bg: #2563eb;  /* primary blue in light mode */
+  --text-color: #1f2937; /* general text */
+  --basket-bg: #ffffff;
+  --basket-text: #1f2937;
+  --border-color: #e5e7eb;
+  --total-bg: #f3f4f6;
+ --logo: #f97316;  /* orange for light mode */
+}
+
+body.dark {
+   --toggle-bg: #374151;  /* darker button for dark mode */
+  --text-color: #f9fafb;
+  --logo: #f87171;
+  --basket-bg: #374151;
+  --basket-text: #f9fafb;
+  --border-color: #4b5563;
+  --total-bg: #2a2a2a;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--navbar-bg);
+  color: var(--text-color);
+  position: relative;
+  transition: background 0.3s ease, color 0.3s ease;
+  z-index: 100;
+}
+
+/* Logo (text) */
+.logo {
+  color: var(--logo);
+  font-size: 1.6rem;
+  font-weight: bold;
+  transition: color 0.3s ease;  /* smooth color change */
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+  background: var(--toggle-bg);
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin-right: 10px;
+  z-index: 101;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--primary-hover);
+  color: white;
+}
+/* Cart count */
+.cart-count {
+  background: var(--danger);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.cart-count:hover {
+  background: var(--danger-hover);
+}
