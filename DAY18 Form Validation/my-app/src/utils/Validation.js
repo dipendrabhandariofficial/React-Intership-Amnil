@@ -1,71 +1,48 @@
-// src/utils/validation.js
+export const validateForm = (values, rules = {}) => {
+    console.info("🚀 ~ validateForm ~ rules:", rules);
+    console.info("🚀 ~ validateForm ~ values:", values);
 
-export const validateForm = (values) => {
     const errors = {};
 
-    // Name validation
-    if (!values.name.trim()) {
-        errors.name = "Name is required";
-    } else if (values.name.length < 2) {
-        errors.name = "Name must be at least 2 characters";
-    }
-
-    // Email validation
-    if (!values.email) {
-        errors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-        errors.email = "Invalid email address";
-    }
-
-    // Password validation
-    if (!values.password) {
-        errors.password = "Password is required";
-    } else if (values.password.length < 6) {
-        errors.password = "Password must be at least 6 characters";
-    }
-    // Age validation
-    if (!values.age) {
-        errors.age = "Age is required";
-    } else if (isNaN(values.age)) {
-        errors.age = "Age must be a number";
-    } else if (values.age < 18 || values.age > 100) {
-        errors.age = "Age must be between 18 and 100";
-    }
+    Object.keys(rules).forEach((field) => {
+        const value = values[field] || "";
+        const fieldRules = rules[field];
 
 
-    // Gender validation
-    if (!values.gender) {
-        errors.gender = "Please select a gender";
-    }
+        // ✅ Required check
+        if (fieldRules.isRequired && !value.trim()) {
+            errors[field] = fieldRules.msg?.isRequired || `${field.charAt(0).toUpperCase() + field.slice(1)} is required`;
 
-    // Country validation
-    if (!values.country) {
-        errors.country = "Please select a country";
-    }
-
-    // Date of Birth validation
-    if (!values.dob) {
-        errors.dob = "Date of birth is required";
-    } else {
-        const dobDate = new Date(values.dob);
-        const today = new Date();
-        const age = today.getFullYear() - dobDate.getFullYear();
-        if (age < 18) {
-            errors.dob = "You must be at least 18 years old";
+            console.info("🚀 ~ validateForm ~ fieldRules.msg:", fieldRules?.msg?.isRequired)
+            return; // stop further checks on this field once error found
         }
-    }
 
-    // Message validation
-    if (!values.message.trim()) {
-        errors.message = "Message is required";
-    } else if (values.message.length < 10) {
-        errors.message = "Message must be at least 10 characters";
-    }
+        // ✅ Min Length check
+        if (fieldRules.minLength && value.length < fieldRules.minLength) {
+            errors[field] =
+                fieldRules.msg.minLength || `${field} must be at least ${fieldRules.minLength} characters`;
+            console.info("🚀 ~ validateForm ~ fieldRules.msg.minLength:", fieldRules?.msg?.minLength)
+            return;
+        }
 
-    // Terms validation
-    if (!values.terms) {
-        errors.terms = "You must accept the terms and conditions";
-    }
+
+        // ✅ Email pattern (if provided as string "email")
+        if (fieldRules.pattern === "email") {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(value)) {
+                errors[field] = fieldRules.msg || `Invalid email format`;
+                return;
+            }
+        }
+
+        // ✅ Custom Regex (if provided directly as RegExp)
+        if (fieldRules.pattern instanceof RegExp) {
+            if (!fieldRules.pattern.test(value)) {
+                errors[field] = fieldRules.msg || `${field} format is invalid`;
+                return;
+            }
+        }
+    });
 
     return errors;
 };

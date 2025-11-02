@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 18px 24px;
+  background: #ffffff;
+  color: #2c3e50;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.menu-icon {
+  font-size: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #3498db;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.menu-icon:hover {
+  background: #ecf5ff;
+  transform: scale(1.05);
+}
+
+.menu-icon:active {
+  transform: scale(0.95);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #2c3e50;
+  letter-spacing: -0.5px;
+  margin: 0;
+}

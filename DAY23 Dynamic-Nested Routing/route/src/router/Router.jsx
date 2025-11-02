@@ -9,6 +9,8 @@ import Setting from '../pages/Setting';
 import Notfound from '../pages/Notfound';
 import Students from '../pages/Students';
 import StudentDetailsPage from '../pages/StudentDetailsPage';
+import Protectedroute from './Protectedroute';
+import Login from '../pages/Login';
 
 const Router = () => {
     return (
@@ -17,10 +19,19 @@ const Router = () => {
                 <Route path="/" element={<App />} />
                 <Route path="/contactus" element={<Contactus />} />
                 <Route path="/aboutus" element={<Aboutus />} />
+                <Route path="/login" element={<Login/>} />
                 <Route path="/students" element={<Students />} />
                 <Route path="/students" element={<Students />} />
                 <Route path="/students/:studentId" element={<StudentDetailsPage />} />
-                <Route path="/dashboard" element={<Dashboard />}>
+                {/* <Route path="/dashboard" element={<Dashboard />}>
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="setting" element={<Setting />} />
+                </Route> */}
+
+                  <Route path="/" element={<Protectedroute/>}>
+                  
+
+                    <Route path="dashboard" element={<Dashboard />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="setting" element={<Setting />} />
                 </Route>
